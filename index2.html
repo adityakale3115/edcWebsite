@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cinematic Splash Animation</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: radial-gradient(circle at center, #121212, #000000);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    /* Intro Text */
+    .intro-text {
+      position: absolute;
+      top: 40%;
+      font-size: 3rem;
+      font-weight: bold;
+      color: white;
+      opacity: 0;
+      animation: fadeInText 2s ease-out forwards;
+    }
+
+    @keyframes fadeInText {
+      from { opacity: 0; transform: scale(0.5); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Background Animation */
+    @keyframes bgGlow {
+      0% { background: radial-gradient(circle at center, #121212, #000000); }
+      100% { background: radial-gradient(circle at center, #292929, #000000); }
+    }
+
+    /* Container */
+    .image-container {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      perspective: 1000px;
+      opacity: 0;
+      animation: fadeInContainer 1s ease-in 2s forwards;
+    }
+
+    @keyframes fadeInContainer {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Image Styling */
+    .image {
+      position: absolute;
+      width: 250px;
+      height: 350px;
+      object-fit: cover;
+      opacity: 0;
+      transform: scale(0.8);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+    }
+
+    /* Animations */
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(-120vw) rotate(-15deg) scale(0.8); }
+      60% { transform: translateX(5vw) rotate(2deg) scale(1.05); }
+      to { opacity: 1; transform: translateX(0) rotate(0) scale(1); }
+    }
+    @keyframes fadeInRight {
+      from { opacity: 0; transform: translateX(120vw) rotate(15deg) scale(0.8); }
+      60% { transform: translateX(-5vw) rotate(-2deg) scale(1.05); }
+      to { opacity: 1; transform: translateX(0) rotate(0) scale(1); }
+    }
+    @keyframes fadeInTop {
+      from { opacity: 0; transform: translateY(-100vh) scale(0.8) rotateY(30deg); }
+      60% { transform: translateY(5vh) scale(1.05) rotateY(-10deg); }
+      to { opacity: 1; transform: translateY(0) scale(1) rotateY(0); }
+    }
+    @keyframes fadeInBottom {
+      from { opacity: 0; transform: translateY(100vh) scale(0.8) rotateY(-30deg); }
+      60% { transform: translateY(-5vh) scale(1.05) rotateY(10deg); }
+      to { opacity: 1; transform: translateY(0) scale(1) rotateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="intro-text">VIT Pune Presents</div>
+
+  <div class="image-container">
+    <img class="image" src="/E-Summit (1 of 54).jpg" alt="">
+    <img class="image" src="/E-Summit (30 of 54).jpg" alt="">
+    <img class="image" src="/E-Summit (30 of 85).jpg" alt="">
+    <img class="image" src="/E-Summit (36 of 85).jpg" alt="">
+    <img class="image" src="/E-Summit (60 of 85).jpg" alt="">
+    <img class="image" src="/E-Summit (64 of 85).jpg" alt="">
+    <img class="image" src="/E-Summit (67 of 85).jpg" alt="">
+    <img class="image" src="/E-Summit (79 of 85).jpg" alt="">
+    <img class="image" src="/E-Summit (85 of 85).jpg" alt="">
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const images = document.querySelectorAll(".image");
+      const animations = ["fadeInLeft", "fadeInRight", "fadeInTop", "fadeInBottom"];
+
+      images.forEach((img, index) => {
+        const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
+        const randomDelay = Math.random() * 2.5 + 2.5; // Delay: 2.5s to 5s
+
+        img.style.animation = `${randomAnimation} 2.5s cubic-bezier(0.25, 1, 0.5, 1) ${randomDelay}s forwards`;
+      });
+
+      // Background glow effect after intro
+      setTimeout(() => {
+        document.body.style.animation = "bgGlow 3s ease-in-out forwards";
+      }, 2000);
+    });
+  </script>
+
+</body>
+</html>

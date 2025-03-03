@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cinematic Event Animation</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+    body {
+      background: radial-gradient(circle at center, #121212, #000000);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    /* Typing Effect for VIT Pune Presents */
+    .intro-text {
+      font-size: 3rem;
+      font-weight: bold;
+      color: white;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 0;
+      border-right: 3px solid white;
+      animation: typing 2.5s steps(12, end) forwards, blink 0.6s infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 18ch; }
+    }
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    /* Image Container */
+    .image-container {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      animation: fadeInContainer 1s ease-in 2.5s forwards;
+    }
+
+    @keyframes fadeInContainer {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Image Styling */
+    .image {
+      position: absolute;
+      width: 250px;
+      height: 350px;
+      object-fit: cover;
+      opacity: 0;
+      transform: scale(0.8);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+      transition: transform 0.5s ease-in-out;
+    }
+
+    /* Entrance Animation */
+    @keyframes fadeInRandom {
+      from { opacity: 0; transform: translate(var(--x), var(--y)) rotate(var(--angle)) scale(0.8); }
+      50% { opacity: 1; transform: translate(0) rotate(0) scale(1.05); }
+      to { transform: scale(1); }
+    }
+
+    /* Exit Animation */
+    @keyframes fadeOutRandom {
+      from { opacity: 1; transform: translate(0) rotate(0) scale(1); }
+      to { opacity: 0; transform: translate(var(--exitX), var(--exitY)) rotate(var(--exitAngle)) scale(0.8); }
+    }
+
+    /* Hero Page */
+    .hero-section {
+      position: absolute;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #181818;
+      color: white;
+      font-size: 2rem;
+      opacity: 0;
+      animation: fadeInHero 2s ease-in 25s forwards; /* Adjusted timing */
+    }
+
+    @keyframes fadeInHero {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Background Animation */
+    @keyframes backgroundAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    body {
+      background: linear-gradient(-45deg, #121212, #000000, #1a1a1a, #000000);
+      background-size: 400% 400%;
+      animation: backgroundAnimation 10s ease infinite;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="intro-text">VIT Pune Presents</div>
+
+  <div class="image-container">
+    <img class="image" src="/E-Summit (1 of 54).jpg" alt="">
+    <img class="image" src="/E-Summit (30 of 54).jpg" alt="">
+    <img class="image" src="/E-Summit (30 of 85).jpg" alt="">
+    <img class="image" src="/E-Summit (36 of 85).jpg" alt="">
+    <img class="image" src="/E-Summit (60 of 85).jpg" alt="">
+    <img class="image" src="/E-Summit (64 of 85).jpg" alt="">
+    <img class="image" src="/E-Summit (67 of 85).jpg" alt="">
+    <img class="image" src="/E-Summit (79 of 85).jpg" alt="">
+    <img class="image" src="/E-Summit (85 of 85).jpg" alt="">
+  </div>
+
+  <div class="hero-section">🚀 Welcome to E-Summit</div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      setTimeout(() => {
+        const images = document.querySelectorAll(".image");
+        
+        images.forEach((img, index) => {
+          // Random starting positions and angles
+          const randomX = Math.random() > 0.5 ? "-100vw" : "100vw";
+          const randomY = Math.random() > 0.5 ? "-100vh" : "100vh";
+          const randomAngle = Math.random() > 0.5 ? "-30deg" : "30deg";
+
+          // Random exit positions and angles
+          const exitX = Math.random() > 0.5 ? "-100vw" : "100vw";
+          const exitY = Math.random() > 0.5 ? "-100vh" : "100vh";
+          const exitAngle = Math.random() > 0.5 ? "-30deg" : "30deg";
+
+          const delay = Math.random() * 3 + 3; // Delay for entrance
+
+          img.style.setProperty("--x", randomX);
+          img.style.setProperty("--y", randomY);
+          img.style.setProperty("--angle", randomAngle);
+          img.style.setProperty("--exitX", exitX);
+          img.style.setProperty("--exitY", exitY);
+          img.style.setProperty("--exitAngle", exitAngle);
+
+          // Entrance animation
+          img.style.animation = `fadeInRandom 3s ease-out ${delay}s forwards`;
+
+          // Exit animation after a delay
+          setTimeout(() => {
+            img.style.animation = `fadeOutRandom 3s ease-in ${delay + 5}s forwards`;
+          }, 10000); // Images stay in the center for 5 seconds before exiting
+        });
+
+        // Hero section appears after all images have exited
+        setTimeout(() => {
+          document.querySelector(".hero-section").style.animation = "fadeInHero 2s ease-in forwards";
+        }, 25000); // Adjusted timing for hero section
+      }, 3000);
+    });
+  </script>
+
+</body>
+</html>
