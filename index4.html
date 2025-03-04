@@ -4,274 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>E-Summit 25 | VEDC | VIT PUNE</title>
-  <style>
-    /* Global Styles */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Arial', sans-serif;
-    }
-    body {
-      background: linear-gradient(-45deg, #121212, #000000, #1a1a1a, #000000);
-      background-size: 400% 400%;
-      animation: backgroundAnimation 15s ease infinite;
-      /* Hide horizontal scrollbar always and vertical during animation */
-      overflow-x: hidden;
-      overflow-y: hidden;
-      min-height: 100vh;
-      position: relative;
-    }
-    @keyframes backgroundAnimation {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    /* Sticky Logo Container */
-    .logo-container {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      padding: 10px;
-      z-index: 1000;
-      opacity: 0;
-      transform: scale(0.8);
-      transition: opacity 2s ease-in, transform 2s ease-in;
-    }
-    .logo-container img {
-      width: 175px;
-      height: 75px;
-    }
-
-    /* Sticky Navbar */
-    .navbar {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 15px;
-      padding: 10px 20px;
-      opacity: 0;
-      transition: opacity 2s ease-in;
-      box-shadow: 0px 4px 10px rgba(0,0,0,0.5);
-      z-index: 1000;
-    }
-    .navbar .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 20px;
-    }
-    .navbar .nav-links li a {
-      color: white;
-      text-decoration: none;
-      font-size: 1.2rem;
-      padding: 5px 10px;
-      border-radius: 5px;
-      transition: background 0.3s, transform 0.3s;
-    }
-    .navbar .nav-links li a:hover {
-      background: rgba(255, 255, 255, 0.2);
-      transform: translateY(-3px);
-    }
-
-    /* Preloader (Centered and Fixed) */
-    .preloader {
-      font-family: 'Cooper Black', serif;
-      font-size: 3rem;
-      font-weight: bold;
-      color: white;
-      overflow: hidden;
-      white-space: nowrap;
-      width: 0;
-      border-right: 3px solid white;
-      text-shadow: 0px 0px 8px rgba(0,255,0,0.7);
-      animation: typing 3s steps(12, end) forwards, blink 0.6s infinite;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 1100;
-    }
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 18ch; }
-    }
-    @keyframes blink {
-      50% { border-color: transparent; }
-    }
-    @keyframes fadeOutPreloader {
-      from { opacity: 1; }
-      to { opacity: 0; }
-    }
-
-    /* Image Container & Images */
-    .image-container {
-      position: absolute;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-      opacity: 0;
-      z-index: 0;
-    }
-    .image {
-      position: relative;
-      width: 250px;
-      height: 350px;
-      object-fit: cover;
-      opacity: 0;
-      transform: scale(0.5) translateY(50px) rotate(-10deg);
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(255,255,255,0.2);
-      transition: transform 1s ease-out, opacity 1s ease-out;
-    }
-
-    /* Hero Section (Home Text PNG Centered with Timer) */
-    section.hero-section {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100vh;
-      text-align: center;
-      padding: 20px;
-      opacity: 0;
-      transition: opacity 2s ease-in;
-      z-index: 1;
-    }
-    .center-bg {
-      display: inline-block;
-      padding: 30px;
-      background: radial-gradient(circle, rgba(0,255,0,0.3), transparent 70%);
-      border-radius: 50%;
-      animation: pulse 3s infinite;
-    }
-    @keyframes pulse {
-      0% { transform: scale(0.98); }
-      50% { transform: scale(1.02); }
-      100% { transform: scale(0.98); }
-    }
-    .hero-section img {
-      max-width: 90vw;
-      height: auto;
-      display: block;
-      margin: 0 auto;
-    }
-    .horizontal-line {
-      width: 100px;
-      height: 2px;
-      background: green;
-      margin: 20px auto;
-      animation: glow 2s ease-out forwards, pulseLine 3s infinite;
-    }
-    @keyframes glow {
-      0% { box-shadow: 0 0 10px green; }
-      100% { box-shadow: 0 0 30px green; }
-    }
-    @keyframes pulseLine {
-      0%, 100% { transform: scaleX(0.95); }
-      50% { transform: scaleX(1.05); }
-    }
-    .timer {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      margin-top: 20px;
-    }
-    .time-box {
-      border: 2px solid white;
-      border-radius: 5px;
-      padding: 10px 20px;
-      text-align: center;
-      color: white;
-      transition: transform 0.3s;
-    }
-    .time-box:hover {
-      transform: scale(1.05);
-    }
-    .time-box .number {
-      font-size: 2rem;
-      display: block;
-      animation: pulseNum 2s infinite;
-    }
-    @keyframes pulseNum {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-    }
-    .time-box .label {
-      font-size: 0.8rem;
-      margin-top: 5px;
-    }
-    @media (max-width: 600px) {
-      .navbar .nav-links li a {
-        font-size: 1rem;
-      }
-      .time-box {
-        padding: 8px 15px;
-      }
-    }
-
-    /* Events Section (Separate Section for Upcoming Events) */
-    section.events-section {
-      width: 100%;
-      background: #111;
-      color: #fff;
-      text-align: center;
-      opacity: 0;
-      transition: opacity 2s ease-in;
-      padding: 60px 20px;
-    }
-    .events-section h2 {
-      font-size: 2.5rem;
-      margin-bottom: 40px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
-    .events-section .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      justify-items: center;
-    }
-    .events-section .event-card {
-      background: #222;
-      border: 2px solid rgba(0, 255, 0, 0.2);
-      border-radius: 10px;
-      overflow: hidden;
-      transition: transform 0.4s, box-shadow 0.4s;
-    }
-    .events-section .event-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 10px 30px rgba(0, 255, 0, 0.4);
-    }
-    .events-section .event-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-    }
-    .events-section .event-details {
-      padding: 20px;
-    }
-    .events-section .event-details h3 {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-    }
-    .events-section .event-details p {
-      font-size: 1rem;
-      margin-bottom: 15px;
-    }
-    .events-section .event-date {
-      font-size: 0.9rem;
-      color: #0f0;
-    }
-  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">  
 </head>
 <body>
   <!-- Sticky Logo Container -->
@@ -289,7 +23,7 @@
     </ul>
   </nav>
   
-  <!-- Preloader (Centered on Screen) -->
+  <!-- Preloader -->
   <div class="preloader">VIT Pune Presents</div>
   
   <!-- Image Container -->
@@ -305,7 +39,7 @@
     <img class="image" src="/E-Summit (85 of 85).jpg" alt="Image 9" />
   </div>
   
-  <!-- Hero Section (Home Text PNG Centered with Timer) -->
+  <!-- Hero Section -->
   <section class="hero-section">
     <div class="center-bg">
       <img src="/hometext.png" alt="Hometext Image" />
@@ -328,14 +62,33 @@
           <span class="label">Seconds</span>
         </div>
       </div>
+      <button class="register-btn" onclick="openModal()">Register Now</button>
+      <!-- Registration Modal -->
+      <div id="registerModal" class="modal">
+        <div class="modal-content">
+          <span class="close-btn" onclick="closeModal()">X</span>
+          <h2>Register for E-Summit 25</h2>
+          <form id="registrationForm">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" required />
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" required />
+            
+            <label for="phone">Phone:</label>
+            <input type="tel" id="phone" required />
+      
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
     </div>
   </section>
   
-  <!-- Events Section (Upcoming Events) -->
+  <!-- Events Section -->
   <section class="events-section">
     <h2>Upcoming Events</h2>
     <div class="grid">
-      <!-- Event Card 1 -->
       <div class="event-card">
         <img src="/talk.jpg" alt="Innovative Tech Talk" />
         <div class="event-details">
@@ -344,7 +97,6 @@
           <span class="event-date">Mar 20, 2025</span>
         </div>
       </div>
-      <!-- Event Card 2 -->
       <div class="event-card">
         <img src="/project.jpg" alt="Startup Pitch" />
         <div class="event-details">
@@ -353,7 +105,6 @@
           <span class="event-date">Mar 21, 2025</span>
         </div>
       </div>
-      <!-- Event Card 3 -->
       <div class="event-card">
         <img src="/event3.jpg" alt="Networking Gala" />
         <div class="event-details">
@@ -362,7 +113,6 @@
           <span class="event-date">Mar 22, 2025</span>
         </div>
       </div>
-      <!-- Event Card 4 -->
       <div class="event-card">
         <img src="/event4.jpg" alt="Coding Marathon" />
         <div class="event-details">
@@ -374,79 +124,102 @@
     </div>
   </section>
   
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const preloader = document.querySelector(".preloader");
-      const images = document.querySelectorAll(".image");
-      const imageContainer = document.querySelector(".image-container");
-      const heroSection = document.querySelector(".hero-section");
-      const navbar = document.querySelector(".navbar");
-      const logoContainer = document.querySelector(".logo-container");
-      const eventsSection = document.querySelector(".events-section");
+  <!-- Timeline Section -->
+  <section class="timeline-section">
+    <h2>Event Timeline</h2>
+    <div class="timeline">
+      <div class="timeline-item left">
+        <div class="timeline-date">15<br>Mar</div>
+        <div class="timeline-content">
+          <h3>Day 1: Opening Ceremony</h3>
+          <p>Kickstart the event with inspiring speeches and welcome sessions.</p>
+        </div>
+      </div>
+      <div class="timeline-item right">
+        <div class="timeline-date">16<br>Mar</div>
+        <div class="timeline-content">
+          <h3>Day 2: Workshops</h3>
+          <p>Engage in interactive workshops to explore innovative ideas.</p>
+        </div>
+      </div>
+      <div class="timeline-item left">
+        <div class="timeline-date">17<br>Mar</div>
+        <div class="timeline-content">
+          <h3>Day 3: Tech Talks</h3>
+          <p>Learn from industry experts sharing insights on the latest trends.</p>
+        </div>
+      </div>
+      <div class="timeline-item right">
+        <div class="timeline-date">18<br>Mar</div>
+        <div class="timeline-content">
+          <h3>Day 4: Networking</h3>
+          <p>Connect with peers, mentors, and future collaborators.</p>
+        </div>
+      </div>
+      <div class="timeline-item left">
+        <div class="timeline-date">19<br>Mar</div>
+        <div class="timeline-content">
+          <h3>Day 5: Startup Pitch</h3>
+          <p>Present innovative ideas and gain valuable feedback.</p>
+        </div>
+      </div>
+      <div class="timeline-item right">
+        <div class="timeline-date">20<br>Mar</div>
+        <div class="timeline-content">
+          <h3>Day 6: Hackathon</h3>
+          <p>Collaborate in a 24-hour coding challenge to solve real-world problems.</p>
+        </div>
+      </div>
+      <div class="timeline-item left">
+        <div class="timeline-date">21<br>Mar</div>
+        <div class="timeline-content">
+          <h3>Day 7: Closing Ceremony</h3>
+          <p>Conclude the event with awards, acknowledgments, and future insights.</p>
+        </div>
+      </div>
+    </div>
+  </section>
   
-      // Fade out preloader after typing completes
-      setTimeout(() => {
-        preloader.style.animation = "fadeOutPreloader 1.5s ease-out forwards";
-      }, 3500);
+  <!-- Sponsors Section -->
+  <section class="sponsors-section">
+    <h2>Our Sponsors</h2>
+    <div class="sponsor-slider">
+      <div class="sponsor-track">
+        <div class="sponsor"><img src="/sponsor1.png" alt="Sponsor 1" /></div>
+        <div class="sponsor"><img src="/sponsor2.png" alt="Sponsor 2" /></div>
+        <div class="sponsor"><img src="/sponsor3.jpeg" alt="Sponsor 3" /></div>
+        <div class="sponsor"><img src="/sponsor4.png" alt="Sponsor 4" /></div>
+        <div class="sponsor"><img src="/sponsor5.png" alt="Sponsor 5" /></div>
+        <div class="sponsor"><img src="/sponsor1.png" alt="Sponsor 1" /></div>
+        <div class="sponsor"><img src="/sponsor2.png" alt="Sponsor 2" /></div>
+        <div class="sponsor"><img src="/sponsor3.jpeg" alt="Sponsor 3" /></div>
+        <div class="sponsor"><img src="/sponsor4.png" alt="Sponsor 4" /></div>
+        <div class="sponsor"><img src="/sponsor5.png" alt="Sponsor 5" /></div>
+      </div>
+    </div>
+  </section>
   
-      // Start image animations after preloader
-      setTimeout(() => {
-        imageContainer.style.opacity = "1";
-        images.forEach((img, index) => {
-          const delay = index * 0.3 + 0.5;
-          img.style.opacity = "1";
-          img.style.transition = `transform 1s ease-out ${delay}s, opacity 1s ${delay}s`;
-          img.style.transform = "scale(1) translateY(0) rotate(0)";
-          // Exit animation for each image
-          setTimeout(() => {
-            const exitX = Math.random() > 0.5 ? "-100vw" : "100vw";
-            const exitY = Math.random() > 0.5 ? "-100vh" : "100vh";
-            const exitAngle = Math.random() > 0.5 ? "-30deg" : "30deg";
-            img.style.transition = "transform 2s ease-in, opacity 2s";
-            img.style.transform = `translate(${exitX}, ${exitY}) rotate(${exitAngle}) scale(1)`;
-            img.style.opacity = "0";
-          }, 4000 + delay * 1000);
-        });
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 E-Summit 25 | VEDC | VIT PUNE. All rights reserved.</p>
+      <ul class="footer-links">
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+      <ul class="footer-social">
+        <li><a href="https://www.facebook.com" target="_blank">Facebook</a></li>
+        <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
+        <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+        <li><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
+      </ul>
+      <p class="footer-credit">Design with &#9829; by V-EDC</p>
+    </div>
+  </footer>
   
-        // Reveal hero section, navbar, logo, and events section after image animations
-        setTimeout(() => {
-          heroSection.style.opacity = "1";
-          navbar.style.opacity = "1";
-          logoContainer.style.opacity = "1";
-          logoContainer.style.transform = "scale(1)";
-          eventsSection.style.opacity = "1";
-          // Restore vertical scrolling (keep horizontal hidden)
-          document.body.style.overflowY = "auto";
-          document.body.style.overflowX = "hidden";
-        }, 8000);
-      }, 3800);
-  
-      // Timer Code
-      const countdownDate = new Date("Mar 15, 2025 23:59:59").getTime();
-      const timerElements = {
-        days: document.getElementById("days"),
-        hours: document.getElementById("hours"),
-        minutes: document.getElementById("minutes"),
-        seconds: document.getElementById("seconds")
-      };
-  
-      const updateTimer = () => {
-        const now = new Date().getTime();
-        const diff = countdownDate - now;
-        if (diff < 0) return;
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        timerElements.days.textContent = days;
-        timerElements.hours.textContent = hours;
-        timerElements.minutes.textContent = minutes;
-        timerElements.seconds.textContent = seconds;
-      };
-  
-      setInterval(updateTimer, 1000);
-      updateTimer();
-    });
+  <script src="script.js">
+   
   </script>
 </body>
 </html>
